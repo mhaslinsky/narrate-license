@@ -93,62 +93,11 @@ async function processActiveAccountCSV() {
   return parsedCsv.data;
 }
 
-// async function compareCsvs(allAccountsData, activeAccountsData) {
-//   licensesInUse = 0;
-
-//   for (const user of allAccountsData) {
-//     if (
-//       user.Access.includes("Admin") ||
-//       user.Access.includes("Read-only") ||
-//       user.Enabled !== "true"
-//     ) {
-//     } else {
-//       licensesInUse++;
-//       //writes new row, and cells + values to table for each licensed user
-//       let tr = userTable.insertRow();
-//       let td1 = tr.insertCell();
-//       let td2 = tr.insertCell();
-
-//       td1.innerHTML = user["First name"];
-//       td2.innerHTML = user["Last name"];
-
-//       //checks user against activeAccounts CSV to get last used date
-//       for (const activeAccount of activeAccountsData) {
-//         if (activeAccount["Account"].includes(user["User name"])) {
-//           let td3 = tr.insertCell();
-//           td3.innerHTML = activeAccount["Last Activity Timestamp"];
-//           prunedUsers.push(
-//             await createUserObject(
-//               user["First name"],
-//               user["Last name"],
-//               activeAccount["Last Activity Timestamp"]
-//             )
-//           );
-//         }
-//       }
-//     }
-//   }
-
-//   // console.log(prunedUsers);
-
-//   licenseNumber.textContent = `Licenses in Use: ${prunedUsers.length}`;
-//   licenseDisplay.classList.remove("hidden");
-//   btnSubmit.classList.remove("bouncy");
-// }
-
-// async function createUserObject(firstName, lastName, activityTimestamp) {
-//   return {
-//     firstName: firstName,
-//     lastName: lastName,
-//     lastActivity: activityTimestamp,
-//   };
-// }
-
 async function userObject(allAccountsData, activeAccountsData) {
   const nonLicensedUsers = allAccountsData.filter((user) => {
     const adminAccess = user.Access.includes("Admin");
     const readOnlyAccess = user.Access.includes("Read-only");
-    const isEnabled = user.Enabled === "true";
+    const isEnabled = user.Enabled === "TRUE";
 
     return isEnabled && !adminAccess && !readOnlyAccess;
   });
