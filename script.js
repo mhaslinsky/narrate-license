@@ -94,6 +94,7 @@ async function processActiveAccountCSV() {
 }
 
 async function userObject(allAccountsData, activeAccountsData) {
+  console.log(allAccountsData);
   const nonLicensedUsers = allAccountsData.filter((user) => {
     const adminAccess = user.Access.includes("Admin");
     const readOnlyAccess = user.Access.includes("Read-only");
@@ -101,6 +102,8 @@ async function userObject(allAccountsData, activeAccountsData) {
 
     return isEnabled && !adminAccess && !readOnlyAccess;
   });
+
+  console.log(nonLicensedUsers);
 
   const createUserObjects = nonLicensedUsers.map((user) => {
     const firstName = user["First name"];
